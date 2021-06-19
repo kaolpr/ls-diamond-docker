@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -u
+
+# This will be persistent home for your container's user
+mkdir -p $HOME/.lsdiamond/workspace
+
+docker run -ti -e DISPLAY=:0 \
+--mac-address=$LS_DIAMOND_ETHADDR \
+--privileged --ipc host \
+-u diamond \
+-v $HOME/.lsdiamond:/home/diamond \
+-v $(pwd):/home/diamond/workspace \
+-v /dev/bus/usb/:/dev/bus/usb/ \
+-v /tmp/.X11-unix/:/tmp/.X11-unix \
+diamond:v3.12 \
+-c "source /env-setup.sh; diamond"

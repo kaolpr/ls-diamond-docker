@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -u
+
+docker run -ti -e DISPLAY=:0 \
+--mac-address=$LS_DIAMOND_ETHADDR \
+--privileged --ipc host \
+-v $(pwd):/mnt \
+-v /dev/bus/usb/:/dev/bus/usb/ \
+-v /tmp/.X11-unix/:/tmp/.X11-unix diamond:base
